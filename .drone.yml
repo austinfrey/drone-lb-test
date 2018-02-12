@@ -14,7 +14,7 @@ pipeline:
     secrets: [ docker_username, docker_password ]
 
   rancher:
-    image: peloton/rancher
+    image: peloton/drone-rancher
     url: drone.zi.gy
     access_key: ${RANCHER_ACCESS_KEY}
     secret_key: ${RANCHER_SECRET_KEY}
