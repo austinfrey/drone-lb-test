@@ -10,7 +10,7 @@ pipeline:
     repo: aafrey/drone-lb-test
     tags:
       - latest
-      - 0.0.1-${DRONE_COMMIT_SHA:0:7}
+      - 0.0.2-${DRONE_COMMIT_SHA:0:7}
     secrets: [ docker_username, docker_password ]
 
   rancher:
@@ -19,5 +19,5 @@ pipeline:
     access_key: ${RANCHER_ACCESS_KEY}
     secret_key: ${RANCHER_SECRET_KEY}
     service: lb-mongo/api
-    docker_image: aafrey/drone-lb-test:0.0.1-${DRONE_COMMIT_SHA:0:7}
+    docker_image: aafrey/drone-lb-test:0.0.2-${DRONE_COMMIT_SHA:0:7}
     secrets: [ rancher_access_key, rancher_secret_key ]
