@@ -1,0 +1,23 @@
+pipeline:
+  build:
+    image: node:8.9-alpine
+    commands:
+      - npm install
+      - npm test
+      - npm run build
+
+  publish:
+    image: plugins/docker
+    repo: aafrey/drone-lb-test
+    tags:
+      - latest
+      - 0.0.1-${DRONE_COMMIT_SHA:0:7}
+    secrets: [ docker_username, docker_password ]
+
+  rancher:
+    image: peloton/rancher
+    url: drone.zi.gy
+    access_key: ${}
+    secret_key: ${}
+    service: lb-mongo/api
+    secrets: [ rancher_access_key, rancher_secret_key ]
