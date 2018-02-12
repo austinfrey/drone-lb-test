@@ -6,6 +6,7 @@
 import {Application, ApplicationConfig} from '@loopback/core';
 import {RestComponent, RestServer} from '@loopback/rest';
 import {PingController} from './controllers/ping.controller';
+import {HelloController} from './controllers/hello.controller';
 import {MySequence} from './sequence';
 
 export class AppApplication extends Application {
@@ -34,5 +35,6 @@ export class AppApplication extends Application {
 
   setupControllers() {
     this.controller(PingController);
+    this.controller(HelloController);
   }
 }
