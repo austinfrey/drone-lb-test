@@ -17,7 +17,7 @@ pipeline:
   rancher:
     image: peloton/rancher
     url: drone.zi.gy
-    access_key: ${}
-    secret_key: ${}
+    access_key: ${RANCHER_ACCESS_KEY}
+    secret_key: ${RANCHER_SECRET_KEY}
     service: lb-mongo/api
     secrets: [ rancher_access_key, rancher_secret_key ]
