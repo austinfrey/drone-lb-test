@@ -40,8 +40,10 @@
   "dependencies": {
     "@loopback/context": ">=4.0.0-alpha.18",
     "@loopback/core": ">=4.0.0-alpha.20",
-    "@loopback/rest": ">=4.0.0-alpha.7",
-    "@loopback/openapi-v2": ">=4.0.0-alpha.2"
+    "@loopback/openapi-v2": ">=4.0.0-alpha.2",
+    "@loopback/repository": "^4.0.0-alpha.29",
+    "@loopback/repository-json-schema": "^4.0.0-alpha.7",
+    "@loopback/rest": ">=4.0.0-alpha.7"
   },
   "devDependencies": {
     "@loopback/build": ">=4.0.0-alpha.4",

@@ -1,40 +1,34 @@
-// Copyright IBM Corp. 2017,2018. All Rights Reserved.
-// Node module: @loopback/cli
-// This file is licensed under the MIT License.
-// License text available at https://opensource.org/licenses/MIT
+import { ApplicationConfig } from '@loopback/core';
+import { RestApplication } from '@loopback/rest';
+import { ProductController, PingController, HelloController } from './controllers';
+import {
+  Class,
+  Repository,
+  RepositoryMixin,
+  DataSourceConstructor,
+} from '@loopback/repository';
+import { db } from './datasources/db.datasource';
+import { ProductRepository } from './repositories';
 
-import {Application, ApplicationConfig} from '@loopback/core';
-import {RestComponent, RestServer} from '@loopback/rest';
-import {PingController} from './controllers/ping.controller';
-import {HelloController} from './controllers/hello.controller';
-import {MySequence} from './sequence';
-
-export class AppApplication extends Application {
+export class AppApplication extends RepositoryMixin(RestApplication) {
   constructor(options?: ApplicationConfig) {
-    // Allow options to replace the defined components array, if desired.
-    options = Object.assign(
-      {},
-      {
-        components: [RestComponent],
-      },
-      options,
-    );
     super(options);
-    this.server(RestServer);
     this.setupControllers();
-  }
-
-  async start() {
-    const server = await this.getServer(RestServer);
-    server.sequence(MySequence);
-    const port = await server.get('rest.port');
-    console.log(`Server is running at http://127.0.0.1:${port}`);
-    console.log(`Try http://127.0.0.1:${port}/ping`);
-    return await super.start();
+    this.setupRepositories();
   }
 
   setupControllers() {
     this.controller(PingController);
     this.controller(HelloController);
+    this.controller(ProductController);
+  }
+
+  setupRepositories() {
+    const datasource =
+      this.options && this.options.datasource
+        ? new DataSourceConstructor(this.options.datasource)
+        : db;
+    this.bind('datasource').to(datasource);
+    this.repository(ProductRepository);
   }
 }
